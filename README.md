@@ -19,6 +19,8 @@ cppbox
 
 - CMake (version 3.10 or higher)
 - A C++ compiler (e.g., g++, clang++)
+- Python (version 3.6 or higher) with the following package:
+  - NumPy (`pip install numpy`)
 
 ## Building the Project
 
