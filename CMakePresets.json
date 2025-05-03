@@ -7,8 +7,8 @@
     },
     "configurePresets": [
         {
-            "name": "def",
-            "displayName": "Ninja+Vcpkg",
+            "name": "default",
+            "displayName": "Default Config",
             "description": "Configure with Ninja and vcpkg toolchain",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build",
@@ -16,15 +16,56 @@
                 "CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "CMAKE_CXX_STANDARD": "11",
                 "CMAKE_CXX_STANDARD_REQUIRED": "ON"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "default-unix",
+            "inherits": "default",
+            "displayName": "Default Unix Config",
+            "condition": {
+                "type": "inList",
+                "string": "${hostSystemName}",
+                "list": ["Linux", "Darwin"]
+            }
+        },
+        {
+            "name": "release",
+            "inherits": "default",
+            "displayName": "Release Config",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "release-unix",
+            "inherits": "default-unix",
+            "displayName": "Release Unix Config",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
             }
         }
     ],
     "buildPresets": [
         {
-            "name": "def-build",
-            "configurePreset": "def",
-            "displayName": "Build with Ninja",
-            "description": "Build using Ninja"
+            "name": "default",
+            "configurePreset": "default"
+        },
+        {
+            "name": "default-unix",
+            "configurePreset": "default-unix"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release"
+        },
+        {
+            "name": "release-unix",
+            "configurePreset": "release-unix"
         }
     ]
 }

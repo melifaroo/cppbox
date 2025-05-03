@@ -45,27 +45,20 @@ FetchContent_GetProperties(matplotlib)
 if(NOT matplotlib_POPULATED)
     FetchContent_Populate(matplotlib)
 endif()
+
 include_directories(SYSTEM ${matplotlib_SOURCE_DIR})
-
 include_directories(include)
-
 file(GLOB SOURCES "src/*.cpp")
 
 add_executable(cppbox ${SOURCES})
 
 # link python and numpy
-
 if(Python3_LIBRARY_RELEASE)
     set(Python3_LIBRARIES ${Python3_LIBRARY_RELEASE})
 else()
     set(Python3_LIBRARIES ${Python3_LIBRARIES})
 endif()
 
-target_link_libraries(cppbox
-    PRIVATE
-        ${Python3_LIBRARIES}
-        Python3::NumPy
-)
-
+target_link_libraries(cppbox PRIVATE ${Python3_LIBRARIES} Python3::NumPy )
 target_link_libraries(cppbox PRIVATE fmt::fmt )
 
