@@ -32,7 +32,9 @@ You need a C++17-compliant compiler. Options include:
 ##### b. g++ (via MinGW-w64):
 - Download: MinGW-w64 (e.g., via MSYS2)
 - Installation (using MSYS2):
-   pacman -S mingw-w64-x86_64-gcc
+```bash
+pacman -S mingw-w64-x86_64-gcc
+```
 - PATH: Add C:\msys64\mingw64\bin to PATH.
 ##### c. clang++:
 - Download: LLVM
@@ -40,22 +42,31 @@ You need a C++17-compliant compiler. Options include:
 - PATH: Add C:\Program Files\LLVM\bin to PATH.
 #### macOS
 ##### a. clang++ (via Xcode Command Line Tools):
-- Installation: xcode-select --install
+- Installation: 
+```bash
+xcode-select --install
+```
 - PATH: Automatically configured.
 ##### b. g++ (homebrew):
 - Install Homebrew: brew.sh
 - Install g++: 
-   brew install gcc
+```bash
+brew install gcc
+```
 - PATH: Automatically configured (e.g., /opt/homebrew/bin).
 #### Linux
 ##### a. g++:
 - Installation: 
-   sudo apt update
-   sudo apt install g++
+```bash
+sudo apt update
+sudo apt install g++
+```
 - PATH: Automatically configured.
 ##### b. clang++:
 - Installation:
-   sudo apt install clang
+```bash
+sudo apt install clang
+```
 - PATH: Automatically configured.
 
 ### 2. CMake
@@ -64,12 +75,18 @@ CMake is used for build configuration.
 #### Installation:
 ##### Windows
 Install to C:\Program Files\CMake. Select Add CMake to the system PATH for all users.
-##### macOS (homebrew):
+##### macOS:
+```homebrew
 brew install cmake
-##### Linux (bash)
+```
+##### Linux
+```bash
 sudo apt install cmake
+```
 #### Verify
+```
 cmake --version
+```
 Expected: Version 3.20 or higher.
 
 ### 3. Ninja
@@ -81,13 +98,19 @@ Ninja is the build system used with CMake.
 - Place in C:\Program Files\Ninja.
 - Add C:\Program Files\Ninja to PATH.
 ##### macOS (homebrew):
+```
 brew install ninja
+```
 ##### Linux (Ubuntu/Debian)
+```
 sudo apt install ninja-build
+```
 #### Path
 add to `PATH` (optional, but recommended).
 #### Verify
+```
 ninja --version
+```
 Expected: Version 1.10 or higher.
 
 ### 4. vcpkg (Optional)
@@ -95,14 +118,20 @@ vcpkg manages dependencies like fmt. You can skip vcpkg if you install dependenc
 #### Download vcpkg
 #### Installation:
 - Clone vcpkg:
+```
 git clone https://github.com/microsoft/vcpkg.git
+```
 - Bootstrap:
 ##### Windows (cmd):
+```
 cd vcpkg
 bootstrap-vcpkg.bat
+```
 ##### macOS/Linux (bash):
+```
 cd vcpkg
 ./bootstrap-vcpkg.sh
+```
 - Recommended installation path:
    Windows: C:\Program Files\vcpkg
    macOS/Linux: ~/vcpkg
@@ -112,11 +141,14 @@ Set environment variable VCPKG_ROOT to the vcpkg directory (e.g., C:\Program Fil
 - Open "System Properties" → "Environment Variables".
 - Add VCPKG_ROOT=C:\Program Files\vcpkg.
 ##### macOS/Linux:
+```
 echo 'export VCPKG_ROOT=~/vcpkg' >> ~/.zshrc  # or ~/.bashrc
 source ~/.zshrc
+```
 #### Verify
+```
 vcpkg version
-
+```
 ### 5. Git (Optional)
 Git is used for version control.
 #### Download  Git: [Download](https://git-scm.com/downloads).
@@ -124,12 +156,17 @@ Git is used for version control.
 ##### Windows:
 Install to C:\Program Files\Git. Select Add Git to PATH.
 ##### macOS:
+```
 brew install git
+```
 #### Linix:
+```
 sudo apt install git
+```
 #### Verify
+```
 git --version
-
+```
 ### 6. Python 3 (with Numpy, Matplotlib)
 The project requires a 64-bit Python 3 interpreter with NumPy and Matplotlib.
 #### Download Python (version 3.6 or higher)
@@ -139,26 +176,38 @@ The project requires a 64-bit Python 3 interpreter with NumPy and Matplotlib.
 - Install to C:\Program Files\Python313.
 - Check Add Python to PATH during installation.
 ##### macOS:
+```
 brew install python@3.13
+```
 ##### Linux:
+```
 sudo apt install python3 python3-pip
+```
 #### Install packages
-##### bash:
-python3 -m pip install numpy matplotlib
 ##### cmd:
+```
 python -m pip install numpy matplotlib
+```
+##### bash:
+```
+python3 -m pip install numpy matplotlib
+```
 #### PATH
 - Windows: Ensure C:\Program Files\Python313 and C:\Program Files\Python313\Scripts are in PATH.
 - macOS/Linux: Automatically configured (e.g., /opt/homebrew/bin or /usr/bin).
 #### Verify
-##### bash:
-python3 --version
-python3 -c "import platform; print(platform.architecture())"
-python3 -m pip show numpy matplotlib
 ##### cmd:
+```
 python --version
 python -c "import platform; print(platform.architecture())"
 python -m pip show numpy matplotlib
+```
+##### bash:
+```
+python3 --version
+python3 -c "import platform; print(platform.architecture())"
+python3 -m pip show numpy matplotlib
+```
 Expected:
 - Python version: 3.13 or higher.
 - Architecture: ('64bit', ...).
