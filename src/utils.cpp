@@ -1,5 +1,6 @@
 #include "utils.h"
 #include <iostream>
+#include <fmt/format.h>
 
 #ifdef _DEBUG
 #undef _DEBUG
@@ -12,7 +13,9 @@
 namespace plt = matplotlibcpp;
 
 void printHello() {
-    std::cout << "Hello, World!" << std::endl;
+
+    fmt::print("Hello, fmt version: {}\n", FMT_VERSION);
+    // std::cout << "Hello, World!" << std::endl;
 }
 
 int add(int a, int b) {

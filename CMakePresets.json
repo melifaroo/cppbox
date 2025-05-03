@@ -1,0 +1,30 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 15,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "def",
+            "displayName": "Ninja+Vcpkg",
+            "description": "Configure with Ninja and vcpkg toolchain",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "CMAKE_CXX_STANDARD": "11",
+                "CMAKE_CXX_STANDARD_REQUIRED": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "def-build",
+            "configurePreset": "def",
+            "displayName": "Build with Ninja",
+            "description": "Build using Ninja"
+        }
+    ]
+}

@@ -1,16 +1,38 @@
 cmake_minimum_required(VERSION 3.10)
 
+project(cppbox)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(cppbox)
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE) 
+    if(DEFINED ENV{VCPKG_ROOT}) 
+        set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
+    else() 
+        set(VCPKG_ROOT "${CMAKE_BINARY_DIR}/vcpkg") 
+        if(NOT EXISTS "${VCPKG_ROOT}") 
+            message(STATUS "Cloning vcpkg into ${VCPKG_ROOT}") 
+            execute_process( COMMAND git clone https://github.com/microsoft/vcpkg.git ${VCPKG_ROOT} RESULT_VARIABLE result ) 
+            if(result) 
+                message(FATAL_ERROR "Failed to clone vcpkg: ${result}") 
+            endif() 
+            if(WIN32) 
+                execute_process( COMMAND ${VCPKG_ROOT}/bootstrap-vcpkg.bat WORKING_DIRECTORY ${VCPKG_ROOT} RESULT_VARIABLE result ) 
+            else() 
+                execute_process( COMMAND ${VCPKG_ROOT}/bootstrap-vcpkg.sh WORKING_DIRECTORY ${VCPKG_ROOT} RESULT_VARIABLE result ) 
+            endif() 
+            if(result) 
+                message(FATAL_ERROR "Failed to bootstrap vcpkg: ${result}") 
+            endif() 
+        endif() 
+        set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "") 
+    endif() 
+endif()
 
+find_package(fmt CONFIG REQUIRED) 
 
 find_package(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
 include_directories(${PYTHON3_INCLUDE_DIRS} ${NumPy_INCLUDE_DIRS})
-
-# find_package(Python3 REQUIRED COMPONENTS Development NumPy)
-# include_directories(${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
 
 # populate matplotlib repository
 include(FetchContent)
@@ -44,3 +66,6 @@ target_link_libraries(cppbox
         ${Python3_LIBRARIES}
         Python3::NumPy
 )
+
+target_link_libraries(cppbox PRIVATE fmt::fmt )
+
